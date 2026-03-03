@@ -1,110 +1,69 @@
-// Boot Screen
 window.onload = () => {
-  setTimeout(() => {
-    document.getElementById("bootScreen").style.display = "none";
-  }, 2000);
+  setTimeout(()=>boot.style.display="none",2000);
 
-  loadSettings();
+  let theme = localStorage.getItem("theme");
+  if(theme) document.body.className = theme;
+
+  let wall = localStorage.getItem("wall");
+  if(wall) desktop.style.backgroundImage = `url(${wall})`;
+
+  let saved = localStorage.getItem("notes");
+  if(saved) notes.value = saved;
 };
 
-function loadSettings() {
-  let savedTheme = localStorage.getItem("theme");
-  if (savedTheme) document.body.className = savedTheme;
-
-  let savedWallpaper = localStorage.getItem("wallpaper");
-  if (savedWallpaper)
-    document.getElementById("desktop").style.backgroundImage =
-      `url(${savedWallpaper})`;
-
-  let savedNotes = localStorage.getItem("notes");
-  if (savedNotes) document.getElementById("notepadArea").value = savedNotes;
+/* Start Menu */
+function toggleStart(){
+  start.style.display = start.style.display==="block"?"none":"block";
 }
 
-/* =======================
-   THEME SYSTEM
-======================= */
-function toggleTheme() {
+/* Windows */
+function openApp(id){ document.getElementById(id).style.display="block"; }
+function closeApp(id){ document.getElementById(id).style.display="none"; }
+
+/* Dragging */
+document.querySelectorAll(".window").forEach(win=>{
+  let head = win.querySelector(".header");
+  head.onmousedown = function(e){
+    let offsetX=e.clientX-win.offsetLeft;
+    let offsetY=e.clientY-win.offsetTop;
+    document.onmousemove=function(e){
+      win.style.left=e.clientX-offsetX+"px";
+      win.style.top=e.clientY-offsetY+"px";
+    };
+    document.onmouseup=function(){ document.onmousemove=null; };
+  };
+});
+
+/* Theme */
+function toggleTheme(){
   document.body.className =
-    document.body.className === "light" ? "dark" : "light";
-  localStorage.setItem("theme", document.body.className);
+    document.body.className==="light"?"dark":"light";
+  localStorage.setItem("theme",document.body.className);
 }
 
-/* =======================
-   WALLPAPER SYSTEM
-======================= */
-document.getElementById("wallpaperInput").addEventListener("change", e => {
-  const reader = new FileReader();
-  reader.onload = event => {
-    document.getElementById("desktop").style.backgroundImage =
-      `url(${event.target.result})`;
-    localStorage.setItem("wallpaper", event.target.result);
+/* Wallpaper */
+wallInput.onchange=function(e){
+  let reader=new FileReader();
+  reader.onload=function(event){
+    desktop.style.backgroundImage=`url(${event.target.result})`;
+    localStorage.setItem("wall",event.target.result);
   };
   reader.readAsDataURL(e.target.files[0]);
-});
+};
 
-/* =======================
-   START MENU
-======================= */
-function toggleStart() {
-  let start = document.getElementById("startMenu");
-  start.style.display = start.style.display === "grid" ? "none" : "grid";
+/* Calculator */
+function press(val){ display.value+=val; }
+function calculate(){ display.value=eval(display.value); }
+function clearCalc(){ display.value=""; }
+
+/* Notepad */
+function saveNotes(){
+  localStorage.setItem("notes",notes.value);
 }
 
-/* =======================
-   WINDOW SYSTEM
-======================= */
-function openApp(id) {
-  document.getElementById(id).style.display = "block";
-}
-
-function closeApp(id) {
-  document.getElementById(id).style.display = "none";
-}
-
-/* Draggable Windows */
-document.querySelectorAll(".window").forEach(window => {
-  let header = window.querySelector(".window-header");
-  let isDragging = false;
-  let offsetX, offsetY;
-
-  header.addEventListener("mousedown", e => {
-    isDragging = true;
-    offsetX = e.clientX - window.offsetLeft;
-    offsetY = e.clientY - window.offsetTop;
-  });
-
-  document.addEventListener("mousemove", e => {
-    if (isDragging) {
-      window.style.left = e.clientX - offsetX + "px";
-      window.style.top = e.clientY - offsetY + "px";
-    }
-  });
-
-  document.addEventListener("mouseup", () => {
-    isDragging = false;
-  });
-});
-
-/* =======================
-   CALCULATOR
-======================= */
-function calc(value) {
-  let display = document.getElementById("calcDisplay");
-  if (value === "=") {
-    display.value = eval(display.value);
-  } else if (value === "C") {
-    display.value = "";
-  } else {
-    display.value += value;
-  }
-}
-
-/* =======================
-   NOTEPAD
-======================= */
-function saveNotes() {
-  localStorage.setItem(
-    "notes",
-    document.getElementById("notepadArea").value
-  );
+/* Browser */
+function loadSite(){
+  let urlInput = url.value;
+  if(!urlInput.startsWith("http")) urlInput="https://"+urlInput;
+  frame.src=urlInput;
 }
