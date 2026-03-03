@@ -1,6 +1,6 @@
-window.onload = () => {
-  setTimeout(()=>boot.style.display="none",2000);
+let zIndex = 1;
 
+window.onload = () => {
   let theme = localStorage.getItem("theme");
   if(theme) document.body.className = theme;
 
@@ -13,15 +13,26 @@ window.onload = () => {
 
 /* Start Menu */
 function toggleStart(){
-  start.style.display = start.style.display==="block"?"none":"block";
+  start.classList.toggle("show");
 }
 
-/* Windows */
-function openApp(id){ document.getElementById(id).style.display="block"; }
-function closeApp(id){ document.getElementById(id).style.display="none"; }
+/* Window System */
+function openApp(id){
+  let win = document.getElementById(id);
+  win.style.display="block";
+  win.style.zIndex=++zIndex;
+}
 
-/* Dragging */
+function closeApp(id){
+  document.getElementById(id).style.display="none";
+}
+
+/* Bring to front */
 document.querySelectorAll(".window").forEach(win=>{
+  win.addEventListener("mousedown",()=>{
+    win.style.zIndex=++zIndex;
+  });
+
   let head = win.querySelector(".header");
   head.onmousedown = function(e){
     let offsetX=e.clientX-win.offsetLeft;
