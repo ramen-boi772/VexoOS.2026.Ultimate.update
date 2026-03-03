@@ -7,7 +7,6 @@
 </head>
 <body class="light">
 
-<!-- Boot Screen -->
 <div class="boot" id="boot">
   <div class="boot-logo">WEBOS 2026</div>
   <div class="loader"></div>
@@ -15,7 +14,6 @@
 
 <div class="desktop" id="desktop">
 
-<!-- Start Menu -->
 <div class="start" id="start">
   <div onclick="openApp('calc')">🧮 Calculator</div>
   <div onclick="openApp('note')">📝 Notepad</div>
@@ -23,7 +21,6 @@
   <div onclick="openApp('settings')">⚙ Settings</div>
 </div>
 
-<!-- Calculator -->
 <div class="window" id="calc">
   <div class="header">Calculator <span onclick="closeApp('calc')">✖</span></div>
   <div class="content">
@@ -50,7 +47,6 @@
   </div>
 </div>
 
-<!-- Notepad -->
 <div class="window" id="note">
   <div class="header">Notepad <span onclick="closeApp('note')">✖</span></div>
   <div class="content">
@@ -58,7 +54,6 @@
   </div>
 </div>
 
-<!-- Browser -->
 <div class="window large" id="browser">
   <div class="header">Browser <span onclick="closeApp('browser')">✖</span></div>
   <div class="content">
@@ -70,7 +65,6 @@
   </div>
 </div>
 
-<!-- Settings -->
 <div class="window" id="settings">
   <div class="header">Settings <span onclick="closeApp('settings')">✖</span></div>
   <div class="content">
@@ -80,7 +74,6 @@
   </div>
 </div>
 
-<!-- Taskbar -->
 <div class="taskbar">
   <div class="task-icon" onclick="toggleStart()">🪟</div>
 </div>
