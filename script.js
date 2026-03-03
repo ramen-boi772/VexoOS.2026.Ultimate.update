@@ -1,22 +1,30 @@
 let zIndex = 1;
 
+const desktop = document.getElementById("desktop");
+const start = document.getElementById("start");
+const notes = document.getElementById("notes");
+const display = document.getElementById("display");
+
 window.onload = () => {
-  let theme = localStorage.getItem("theme");
-  if(theme) document.body.className = theme;
 
-  let wall = localStorage.getItem("wall");
-  if(wall) desktop.style.backgroundImage = `url(${wall})`;
+  setTimeout(()=>{
+    document.getElementById("boot").style.display="none";
+  },2000);
 
-  let saved = localStorage.getItem("notes");
-  if(saved) notes.value = saved;
+  if(localStorage.getItem("theme"))
+    document.body.className = localStorage.getItem("theme");
+
+  if(localStorage.getItem("notes"))
+    notes.value = localStorage.getItem("notes");
 };
 
 function toggleStart(){
-  start.classList.toggle("show");
+  start.style.display =
+    start.style.display==="block"?"none":"block";
 }
 
 function openApp(id){
-  let win = document.getElementById(id);
+  const win=document.getElementById(id);
   win.style.display="block";
   win.style.zIndex=++zIndex;
 }
@@ -25,48 +33,36 @@ function closeApp(id){
   document.getElementById(id).style.display="none";
 }
 
-document.querySelectorAll(".window").forEach(win=>{
-  win.addEventListener("mousedown",()=>{
-    win.style.zIndex=++zIndex;
-  });
-
-  let head = win.querySelector(".header");
-  head.onmousedown = function(e){
-    let offsetX=e.clientX-win.offsetLeft;
-    let offsetY=e.clientY-win.offsetTop;
-    document.onmousemove=function(e){
-      win.style.left=e.clientX-offsetX+"px";
-      win.style.top=e.clientY-offsetY+"px";
-    };
-    document.onmouseup=function(){ document.onmousemove=null; };
-  };
-});
-
 function toggleTheme(){
-  document.body.className =
-    document.body.className==="light"?"dark":"light";
+  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light");
   localStorage.setItem("theme",document.body.className);
 }
 
-wallInput.onchange=function(e){
-  let reader=new FileReader();
-  reader.onload=function(event){
-    desktop.style.backgroundImage=`url(${event.target.result})`;
-    localStorage.setItem("wall",event.target.result);
-  };
-  reader.readAsDataURL(e.target.files[0]);
-};
+function press(val){
+  display.value+=val;
+}
 
-function press(val){ display.value+=val; }
-function calculate(){ display.value=eval(display.value); }
-function clearCalc(){ display.value=""; }
+function calculate(){
+  try{ display.value=eval(display.value); }
+  catch{ display.value="Error"; }
+}
+
+function clearCalc(){
+  display.value="";
+}
 
 function saveNotes(){
   localStorage.setItem("notes",notes.value);
 }
 
 function loadSite(){
-  let urlInput = url.value;
-  if(!urlInput.startsWith("http")) urlInput="https://"+urlInput;
-  frame.src=urlInput;
+  let url=document.getElementById("url").value;
+  if(!url.startsWith("http"))
+    url="https://"+url;
+  document.getElementById("frame").src=url;
+}
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
 }
