@@ -1,18 +1,13 @@
 {
-  "name": "WEBOS 2026",
-  "short_name": "WEBOS",
+  "name": "VexoOS 2026",
+  "short_name": "VexoOS",
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#111111",
   "theme_color": "#0078ff",
   "icons": [
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "icon-512.png",
+      "src": "icon.png",
       "sizes": "512x512",
       "type": "image/png"
     }
