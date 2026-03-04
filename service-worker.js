@@ -1,7 +1,20 @@
-self.addEventListener("install", event => {
-  self.skipWaiting();
+self.addEventListener("install", e => {
+  e.waitUntil(
+    caches.open("vexos-cache").then(cache => {
+      return cache.addAll([
+        "./",
+        "./index.html",
+        "./style.css",
+        "./script.js"
+      ]);
+    })
+  );
 });
 
-self.addEventListener("fetch", event => {
-  event.respondWith(fetch(event.request));
+self.addEventListener("fetch", e => {
+  e.respondWith(
+    caches.match(e.request).then(response => {
+      return response || fetch(e.request);
+    })
+  );
 });
