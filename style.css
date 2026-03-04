@@ -1,120 +1,106 @@
-body{
+body {
   margin:0;
-  font-family:Segoe UI, sans-serif;
+  font-family:Segoe UI;
   overflow:hidden;
+  transition:0.3s;
 }
 
-body.light{
-  background:linear-gradient(135deg,#eaf3ff,#ffffff);
-}
+.light { background:#e6e9ef; }
+.dark { background:#111; color:white; }
 
-body.dark{
-  background:linear-gradient(135deg,#0f0f0f,#1c1c1c);
-  color:white;
-}
-
-.boot{
+.boot {
   position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
+  inset:0;
+  background:#000;
+  color:white;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
-  color:white;
+  font-size:30px;
   z-index:9999;
 }
 
-.loader{
-  width:40px;
-  height:40px;
-  border:4px solid white;
-  border-top:4px solid transparent;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-}
+.desktop { width:100vw; height:100vh; }
 
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
-
-.desktop{
-  width:100vw;
-  height:100vh;
-  background-size:cover;
-  background-position:center;
-}
-
-.taskbar{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  height:55px;
-  background:#0078ff;
-  display:flex;
-  align-items:center;
-  padding:0 10px;
-}
-
-.task-icon{
+.start {
+  position:absolute;
+  bottom:50px;
+  left:10px;
+  background:#222;
   color:white;
-  font-size:22px;
-  cursor:pointer;
-}
-
-.start{
-  position:fixed;
-  bottom:70px;
-  left:20px;
-  background:white;
-  padding:15px;
-  border-radius:10px;
+  padding:10px;
+  border-radius:12px;
   display:none;
 }
 
-.window{
+.start div {
+  padding:8px;
+  cursor:pointer;
+}
+
+.window {
   position:absolute;
   top:100px;
   left:100px;
   width:350px;
   background:white;
-  border-radius:10px;
-  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  border-radius:14px;
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
   display:none;
+  flex-direction:column;
+  animation:pop 0.2s ease;
 }
 
-.large{ width:600px; }
+.large { width:800px; height:500px; }
 
-.header{
+@keyframes pop {
+  from{ transform:scale(0.9); opacity:0;}
+  to{ transform:scale(1); opacity:1;}
+}
+
+.header {
   background:#0078ff;
   color:white;
   padding:8px;
   display:flex;
   justify-content:space-between;
   cursor:move;
+  border-radius:14px 14px 0 0;
 }
 
-.content{ padding:10px; }
+.content { padding:10px; flex:1; display:flex; flex-direction:column; }
 
-textarea{
-  width:100%;
-  height:200px;
+textarea {
+  flex:1;
+  resize:none;
 }
 
-.calc-grid{
+.calc-grid {
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:5px;
 }
 
-button{
-  padding:8px;
-  cursor:pointer;
+.browser-bar {
+  display:flex;
+  gap:5px;
 }
 
-iframe{
-  width:100%;
-  height:250px;
+iframe {
+  flex:1;
   border:none;
+}
+
+.taskbar {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:40px;
+  background:#111;
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:0 10px;
+  gap:10px;
 }
