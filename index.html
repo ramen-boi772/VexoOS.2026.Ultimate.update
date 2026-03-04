@@ -80,8 +80,11 @@
       <span>Browser</span>
       <button onclick="closeApp('browser')">✖</button>
     </div>
-    <iframe src="https://www.google.com" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      <iframe id="frame"></iframe>
+      <div class="content">
+      <div class="browser-bar">
+        <input type="text" id="url" placeholder="Enter website...">
+        <button onclick="loadSite()">Go</button>
+      </div>      <iframe id="frame"></iframe>
     </div>
   </div>
 
