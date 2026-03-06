@@ -5,22 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VexoOS 2026 Ultimate</title>
 <link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/x-icon" href="/VexoOS.2026.Ultimate.update/favicon.ico"> 
 </head>
 <body class="light">
 
-<!-- BOOT -->
 <div id="boot" class="boot">VexoOS 2026</div>
 
-<!-- LOGIN -->
 <div id="login" class="login">
   <h2>Welcome</h2>
   <button onclick="enterOS()">Enter</button>
 </div>
 
-<!-- DESKTOP -->
 <div id="desktop" class="desktop">
 
-  <!-- START MENU -->
   <div id="start" class="start">
     <div onclick="openApp('calc')">🧮 Calculator</div>
     <div onclick="openApp('note')">📝 Notepad</div>
@@ -29,7 +26,6 @@
     <div onclick="toggleTheme()">🌙 Toggle Theme</div>
   </div>
 
-  <!-- CALCULATOR -->
   <div class="window" id="calc">
     <div class="header" onmousedown="dragStart(event,this.parentElement)">
       Calculator
@@ -63,7 +59,6 @@
     </div>
   </div>
 
-  <!-- NOTEPAD -->
   <div class="window" id="note">
     <div class="header" onmousedown="dragStart(event,this.parentElement)">
       Notepad
@@ -77,7 +72,6 @@
     </div>
   </div>
 
-  <!-- BROWSER -->
   <div class="window large" id="browser">
     <div class="header" onmousedown="dragStart(event,this.parentElement)">
       Browser
@@ -97,7 +91,6 @@
     </div>
   </div>
 
-  <!-- FILE EXPLORER -->
   <div class="window" id="files">
     <div class="header" onmousedown="dragStart(event,this.parentElement)">
       File Explorer
@@ -118,7 +111,6 @@
 
 </div>
 
-<!-- TASKBAR -->
 <div class="taskbar">
   <div onclick="toggleStart()">🪟</div>
 </div>
